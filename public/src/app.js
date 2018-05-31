@@ -86,12 +86,26 @@ class App extends Component {
 
   getPrev = () => {
     let index = Math.max(0, this.state.index - 10);
-    this.setState({index}, this.getMovies);
+    this.setState({index}, () => {
+      this.getMovies();
+      this.updateUrl();
+    });
   }
 
   getNext = () => {
     let index = this.state.index + 10;
-    this.setState({index}, this.getMovies);
+    this.setState({index}, () => {
+      this.getMovies();
+      this.updateUrl();
+    });
+  }
+
+  updateUrl = () => {
+    let url = "/?index=" + this.state.index;
+    if (this.state.index == 0) {
+      url = "/";
+    }
+    history.pushState({index: 10}, "Search Results", url);
   }
 
   render() {
