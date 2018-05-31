@@ -100,3 +100,5 @@ queries for titles, and to restrict searches between years:
 * `?q=` queries movies by their title.
 * `?min=` queries movies so they appear after this year.
 * `?max=` queries movies so they appear before this year.
+
+Allow users to sort data by various properties.
