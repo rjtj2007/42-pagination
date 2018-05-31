@@ -6,12 +6,17 @@ class App extends Component {
   state = {
     loading: true,
     movies: [],
+    total: 0,
     title: undefined,
     minyear: null, maxYear: null,
+    index: 0,
+  }
+
+  componentDidMount() {
+    this.getMovies();
   }
 
   filter = (ev) => {
-    console.log('filtering')
     ev.preventDefault();
 
     // qTitle will be an empty string at the very least
@@ -41,9 +46,9 @@ class App extends Component {
   sortByYear = () => {
     let movies = this.state.movies.slice();
     movies.sort((m1, m2) => {
-      if (m2[1] < m1[1]) {
+      if (m2.title < m1.title) {
         return -1;
-      } else if (m2[1] > m1[1]) {
+      } else if (m2.title > m1.title) {
         return 1;
       } else {
         return 0;
@@ -55,9 +60,9 @@ class App extends Component {
   sortByTitle = () => {
     let movies = this.state.movies.slice();
     movies.sort((m1, m2) => {
-      if (m2[2] < m1[2]) {
+      if (m2.title < m1.title) {
         return 1;
-      } else if (m2[2] > m1[2]) {
+      } else if (m2.title > m1.title) {
         return -1;
       } else {
         return 0;
@@ -66,22 +71,35 @@ class App extends Component {
     this.setState({movies})
   }
 
-  getInitial = () => {
-
+  getMovies = () => {
+    this.setState({loading: true});
+    fetch('/movies?skip=' + this.state.index)
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
+        loading: false,
+        movies: json.movies,
+        total: json.total,
+      });
+    });
   }
 
   getPrev = () => {
-
+    let index = Math.max(0, this.state.index - 10);
+    this.setState({index}, this.getMovies);
   }
 
   getNext = () => {
-
+    let index = this.state.index + 10;
+    this.setState({index}, this.getMovies);
   }
 
   render() {
     return <Fragment>
       <h1>My App!!</h1>
-      <p>{this.state.movies.length}{' '} results.</p>
+      <p>
+        {this.state.index}-{this.state.index + 10} of {this.state.total} results.
+      </p>
       <form onSubmit={this.filter}>
         <input id="title" type="text" placeholder="movie name"/>
         <input id="minyear" type="number" placeholder="start year"/>
@@ -96,7 +114,7 @@ class App extends Component {
       {this.state.loading && <p>Loading...</p>}
 
       {!this.state.loading && this.state.movies.map((movie, i) => {
-        return <div key={i}>{movie[1]} {' '} {movie[2]}</div>
+        return <div key={movie._id}>{movie.year} {' '} {movie.title}</div>
       })}
 
       <p>

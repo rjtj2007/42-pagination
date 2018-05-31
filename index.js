@@ -8,6 +8,8 @@ const app = express();
 
 const movieRouter = require('./routes/movies');
 
+app.use('/movies', movieRouter);
+
 app.get('/welcome', (req, res) => {
   console.log('dish out welcome')
   res.send('welcome!');
