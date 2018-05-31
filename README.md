@@ -28,6 +28,22 @@ Your app must utilize the following technologies:
 * Webpack or Parcel
 * React
 
+Your application should have the following directory structure:
+
+* `index.js` - your server
+* `routes/` - one route file handling api requests
+* `models/` - your MongoDB models
+* `public/`
+  * `public/index.html` - your HTML template
+  * `public/src/app.js` - your initial React app
+  * `public/src/components/` - any React components
+* `scripts/seed.js` - a file dedicated to parsing your data set
+* `your_data.[csv|json|js|txt]` - your data set (if it's small)
+
+**Note:** if your data file is extremely large (over 20MB) do not commit it to
+the repo. Instead, save a link to the data source in your README. Repos are
+for source code, not data distribution.
+
 ## Pagination
 Your pagination endpoint should support at least these query parameters:
 
