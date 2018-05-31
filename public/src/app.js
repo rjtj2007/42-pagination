@@ -4,7 +4,8 @@ import MOVIES from '../movies';
 
 class App extends Component {
   state = {
-    movies: MOVIES,
+    loading: true,
+    movies: [],
     title: undefined,
     minyear: null, maxYear: null,
   }
@@ -65,6 +66,18 @@ class App extends Component {
     this.setState({movies})
   }
 
+  getInitial = () => {
+
+  }
+
+  getPrev = () => {
+
+  }
+
+  getNext = () => {
+
+  }
+
   render() {
     return <Fragment>
       <h1>My App!!</h1>
@@ -80,9 +93,16 @@ class App extends Component {
         <button onClick={this.sortByTitle}>sort by title</button>
       </p>
 
-      {this.state.movies.map((movie, i) => {
+      {this.state.loading && <p>Loading...</p>}
+
+      {!this.state.loading && this.state.movies.map((movie, i) => {
         return <div key={i}>{movie[1]} {' '} {movie[2]}</div>
       })}
+
+      <p>
+        <button onClick={this.getPrev}>previous</button>
+        <button onClick={this.getNext}>next</button>
+      </p>
     </Fragment>
   }
 }
