@@ -1,7 +1,12 @@
+require('dotenv').config();
+
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI);
+
 const express = require('express');
 const app = express();
 
-app.get('/', () => {
+app.get('/', (req, res) => {
     res.send({data: ['happyness', 1, 2, 3]});
 })
 
