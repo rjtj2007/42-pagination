@@ -1,7 +1,9 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect('mongodb://localhost/test');
+// const mongoose = require('mongoose');
+// mongoose.connect(process.env.MONGODB_URI);
 
 const express = require('express');
 const cors = require('cors');

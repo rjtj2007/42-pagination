@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
-import SONGS from '../songs.js';//public folder
+import SONGS from '../public/songs.js'; //public folder
 
 class App extends Component {
     constructor(props){
@@ -23,14 +23,15 @@ class App extends Component {
         this.getSongs();
     }
 
-    getSongs = () => {
-        console.log('getSongs', getSongs)
+    getSongs= ()=> {
+        console.log('getSongs')
         this.setState({
             loading: true
         });
         fetch('http://localhost:3000/api/songs?index=' + this.state.index)
             .then(res => res.json())
             .then(json => {
+                console.log("json", json)
                 this.setState({
                     songs: json.songs,
                     total: json.total,
@@ -38,7 +39,6 @@ class App extends Component {
                 });
             });
     }
-
     getPrev() {
         console.log('state before', this.state);
         let newIndex = this.state.index - 10;
@@ -74,18 +74,19 @@ class App extends Component {
     // }
 
     render() {
+        
         return <Fragment>
 
             <h1>Artist/Song App</h1>
             <p> {this.state.index} to {this.state.index + 10} of {this.state.total} results. 
             </p>
-            <div>
+            {/* <div>
                 {this.state.index > 9 && <button onClick={this.getPrev}>Previous</button>}
                 {this.state.songs.length === 10 && <button onClick={this.getNext}>Next</button>}
-            </div>
+            </div> */}
             {this.state.loading && <p>Loading...</p>} 
-            {!this.state.loading && this.state.songs.map((songs) => {
-                return <div key={song._id}>{song.artist}{song.title}</div>
+            {!this.state.loading && this.state.songs.map((songs, index) => {
+                return <div key={index}>{songs.artist}{songs.title}</div>
                 
             })}
             </Fragment>

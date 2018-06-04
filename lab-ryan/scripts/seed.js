@@ -3,6 +3,9 @@ require('dotenv').config();
 const fs = require('fs');
 
 const Song = require('../models/song.js');
+
+// const mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/test');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -18,7 +21,7 @@ Song.remove({})
            let saves = lines.map(line => {
                let lineArray = line.split(',');
                 if(lineArray.length === 8){
-                    return Songs.create({
+                    return Song.create({
                         state: lineArray[0],
                        //other data to render 
                     });
