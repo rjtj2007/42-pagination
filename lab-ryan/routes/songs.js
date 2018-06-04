@@ -1,29 +1,29 @@
-const Songs = require('../models/song.js');
+const Song = require('../models/song.js');
 
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/songs', (req, res) => {
     console.log('get songs');
-//     let skip = req.query.skip || 0;
-//     let limit = req.query.limit || 10;
+    let index = req.query.index || 0;
+    let count = req.query.count || 10;
 
-//     skip = parseInt(skip);
-//     limit = parseInt(limit);
+    index = parseInt(index);
+    count = parseInt(count);
 
-//     Songs.find({})
-//     .skip(skip)
-//     .limit(limit)
-//     .then(songs => {
-//         console.log('songs', songs.length);
-//         Songs.count()
-//         .then(total => {
-//             res.send({
-//                 songs,
-//                 total,
-//             });
-//         })
-//     });
+    Song.find({})
+    .skip(index)
+    .limit(count)
+    .then(song => {
+        console.log('songs', song.length);
+        Song.count()
+        .then(total => {
+            res.send({
+                song,
+                total,
+            });
+        });
+    });
 });
 
 module.exports = router;
