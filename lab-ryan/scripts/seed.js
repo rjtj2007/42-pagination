@@ -11,10 +11,18 @@ Song.remove({})
     return new Promise((resolve, reject) => {
         fs.readFile('./songdata.csv', 'utf-8', (err, data) => {
            let lines = data.split('\n');
+           lines = lines.filter(line => {
+               if(line) return line;
+           });
+           lines.shift();
            let saves = lines.map(line => {
-               let[_, artist, ...title] = line.split(' ');
-               title = title.join(' ');
-               return Song.create({artist, title})
+               let lineArray = line.split(',');
+                if(lineArray.length === 8){
+                    return Songs.create({
+                        state: lineArray[0],
+                       //other data to render 
+                    });
+                }
            });
 
            Promise.all(saves)
@@ -23,14 +31,14 @@ Song.remove({})
                resolve();
            })
            .catch(() => {
-               console.log('rejected');
+               console.log('rejected', err);
                reject();
            });
         });
     });
 })
 .then(() => {
-    return Song.find({})
+    return Song.find({});
 })
 .then(songs => {
     console.log('queried: ', songs.length);
@@ -38,4 +46,7 @@ Song.remove({})
 .then(() => {
     console.log('disconnected');
     mongoose.disconnect();
+})
+.catch(err => {
+    console.error(err);
 });
