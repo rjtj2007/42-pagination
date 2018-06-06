@@ -4,15 +4,14 @@ const fs = require('fs');
 
 const Song = require('../models/song.js');
 
-// const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/test');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
 Song.remove({})
 .then(() => {
     return new Promise((resolve, reject) => {
-        fs.readFile('./songdata.csv', 'utf-8', (err, data) => {
+        //change to albumlist.csv dataset
+        fs.readFile('./albumlist.csv', 'utf-8', (err, data) => {
            let lines = data.split('\n');
            lines = lines.filter(line => {
                if(line) return line;

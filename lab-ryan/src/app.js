@@ -10,7 +10,7 @@ class App extends Component {
             total: 0,
             index: 0,
             artist: undefined,
-            title: undefined,
+            // title: undefined,
             loading: true
         }
 
@@ -77,7 +77,7 @@ class App extends Component {
         
         return <Fragment>
 
-            <h1>Artist/Song App</h1>
+            <h1>Musical Artist App</h1>
             <p> {this.state.index} to {this.state.index + 10} of {this.state.total} results. 
             </p>
             {/* <div>
@@ -86,7 +86,7 @@ class App extends Component {
             </div> */}
             {this.state.loading && <p>Loading...</p>} 
             {!this.state.loading && this.state.songs.map((songs, index) => {
-                return <div key={index}>{songs.artist}{songs.title}</div>
+                return <div key={index}>{songs.artist}</div>
                 
             })}
             </Fragment>
