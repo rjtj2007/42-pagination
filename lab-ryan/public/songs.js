@@ -500,6 +500,7 @@ let songs = `
 498,1989,The Stone Roses,The Stone Roses,Rock,Indie Rock
 499,1971,Live in Cook County Jail,B.B. King,Blues,Electric Blues
 500,1998,Aquemini,OutKast,Hip Hop,"Reggae, Gangsta, Soul, Conscious"`
+
 SONGS = SONGS.split('\n');
 SONGS = SONGS.map(song => song.split(','));
 export default SONGS;

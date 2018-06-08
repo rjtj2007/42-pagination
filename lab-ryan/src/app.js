@@ -9,7 +9,7 @@ class App extends Component {
             songs: [],
             total: 0,
             index: 0,
-            artist: undefined,
+            // artist: undefined,
             // title: undefined,
             loading: true
         }
@@ -77,7 +77,7 @@ class App extends Component {
         
         return <Fragment>
 
-            <h1>Musical Artist App</h1>
+            <h1>Musical Artist/Album App</h1>
             <p> {this.state.index} to {this.state.index + 10} of {this.state.total} results. 
             </p>
             {/* <div>
